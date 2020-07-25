@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/mattermost/mattermost-server/v5/plugin"
 )
 
@@ -23,6 +24,23 @@ type Plugin struct {
 // ServeHTTP demonstrates a plugin that handles HTTP requests by greeting the world.
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello, world!")
+}
+
+// UserHasBeenCreated is invoked after a user was created.
+func (p *Plugin) UserHasBeenCreated(c *plugin.Context, user *model.User) {
+	theme := p.getConfiguration().CustomTheme
+	if theme == "" {
+		return
+	}
+
+	pref := model.Preference{
+		UserId:   user.Id,
+		Category: model.PREFERENCE_CATEGORY_THEME,
+		Name:     "",
+		Value:    theme,
+	}
+	prefs := []model.Preference{pref}
+	p.API.UpdatePreferencesForUser(user.Id, prefs)
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
