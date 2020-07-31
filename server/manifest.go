@@ -15,7 +15,7 @@ const manifestStr = `
   "id": "set-default-theme",
   "name": "Set Default Theme",
   "description": "Apply a custom theme to all users when they create their account.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "min_server_version": "5.26.0",
   "server": {
     "executables": {
