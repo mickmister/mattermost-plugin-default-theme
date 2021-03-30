@@ -15,6 +15,8 @@ const manifestStr = `
   "id": "set-default-theme",
   "name": "Set Default Theme",
   "description": "Apply a custom theme to all users when they create their account.",
+  "homepage_url": "https://github.com/mickmister/mattermost-plugin-default-theme",
+  "support_url": "https://github.com/mickmister/mattermost-plugin-default-theme/issues",
   "version": "1.0.0",
   "min_server_version": "5.26.0",
   "server": {
