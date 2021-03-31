@@ -16,7 +16,7 @@ func TestOnConfigurationChangeValidTheme(t *testing.T) {
 	plugin := Plugin{}
 	plugin.SetAPI(testAPI)
 
-	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Run(func(args mock.Arguments) {
+	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Once().Run(func(args mock.Arguments) {
 		config := args.Get(0).(*configuration)
 		config.CustomTheme = theme
 	}).Return(nil)
@@ -35,7 +35,7 @@ func TestOnConfigurationChangeBlankTheme(t *testing.T) {
 	plugin := Plugin{}
 	plugin.SetAPI(testAPI)
 
-	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Run(func(args mock.Arguments) {
+	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Once().Run(func(args mock.Arguments) {
 		config := args.Get(0).(*configuration)
 		config.CustomTheme = theme
 	}).Return(nil)
@@ -57,7 +57,7 @@ func TestOnConfigurationChangeInvalidTheme(t *testing.T) {
 	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Run(func(args mock.Arguments) {
 		config := args.Get(0).(*configuration)
 		config.CustomTheme = theme
-	}).Return(nil)
+	}).Once().Return(nil)
 
 	err := plugin.OnConfigurationChange()
 	require.NotNil(t, err)
@@ -72,7 +72,7 @@ func TestOnConfigurationChangeErrorLoadingConfig(t *testing.T) {
 	plugin := Plugin{}
 	plugin.SetAPI(testAPI)
 
-	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Return(errors.New("some error"))
+	testAPI.On("LoadPluginConfiguration", mock.AnythingOfType("*main.configuration")).Once().Return(errors.New("some error"))
 
 	err := plugin.OnConfigurationChange()
 	require.NotNil(t, err)

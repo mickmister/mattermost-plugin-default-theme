@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"sync"
 
 	"github.com/mattermost/mattermost-server/v5/model"
@@ -41,7 +42,12 @@ func (p *Plugin) UserHasBeenCreated(c *plugin.Context, user *model.User) {
 		Value:    theme,
 	}
 	prefs := []model.Preference{pref}
-	p.API.UpdatePreferencesForUser(user.Id, prefs)
+
+	appErr := p.API.UpdatePreferencesForUser(user.Id, prefs)
+	if appErr != nil {
+		errString := fmt.Sprintf("error setting preferences for user %s. err=%s", user.Id, appErr.Error())
+		p.API.LogError(errString)
+	}
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
