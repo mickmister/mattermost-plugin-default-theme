@@ -17,8 +17,8 @@ const manifestStr = `
   "description": "Apply a custom theme to all users when they create their account.",
   "homepage_url": "https://github.com/mickmister/mattermost-plugin-default-theme",
   "support_url": "https://github.com/mickmister/mattermost-plugin-default-theme/issues",
-  "release_notes_url": "https://github.com/mattermost/mattermost-plugin-gitlab/releases/tag/v1.3.0",
-  "version": "1.0.0",
+  "release_notes_url": "https://github.com/mickmister/mattermost-plugin-default-theme/issues/releases/tag/v0.1.0",
+  "version": "0.1.0",
   "min_server_version": "5.26.0",
   "server": {
     "executables": {
