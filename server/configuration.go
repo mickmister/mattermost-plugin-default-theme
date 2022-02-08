@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -18,6 +19,7 @@ import (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
+	CustomTheme string
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if
@@ -75,6 +77,15 @@ func (p *Plugin) OnConfigurationChange() error {
 	// Load the public configuration fields from the Mattermost server configuration.
 	if err := p.API.LoadPluginConfiguration(configuration); err != nil {
 		return errors.Wrap(err, "failed to load plugin configuration")
+	}
+
+	theme := configuration.CustomTheme
+	if theme != "" {
+		m := map[string]interface{}{}
+		err := json.Unmarshal([]byte(theme), &m)
+		if err != nil {
+			return errors.Wrap(err, "error parsing default theme while saving config")
+		}
 	}
 
 	p.setConfiguration(configuration)

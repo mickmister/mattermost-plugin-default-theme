@@ -12,11 +12,14 @@ var manifest *model.Manifest
 
 const manifestStr = `
 {
-  "id": "com.mattermost.plugin-starter-template",
-  "name": "Plugin Starter Template",
-  "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
+  "id": "set-default-theme",
+  "name": "Set Default Theme",
+  "description": "Apply a custom theme to all users when they create their account.",
+  "homepage_url": "https://github.com/mickmister/mattermost-plugin-default-theme",
+  "support_url": "https://github.com/mickmister/mattermost-plugin-default-theme/issues",
+  "release_notes_url": "https://github.com/mickmister/mattermost-plugin-default-theme/issues/releases/tag/v0.1.0",
   "version": "0.1.0",
-  "min_server_version": "5.12.0",
+  "min_server_version": "5.26.0",
   "server": {
     "executables": {
       "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -25,13 +28,19 @@ const manifestStr = `
     },
     "executable": ""
   },
-  "webapp": {
-    "bundle_path": "webapp/dist/main.js"
-  },
   "settings_schema": {
     "header": "",
     "footer": "",
-    "settings": []
+    "settings": [
+      {
+        "key": "CustomTheme",
+        "display_name": "Default Theme",
+        "type": "longtext",
+        "help_text": "Custom Theme JSON",
+        "placeholder": "",
+        "default": ""
+      }
+    ]
   }
 }
 `
